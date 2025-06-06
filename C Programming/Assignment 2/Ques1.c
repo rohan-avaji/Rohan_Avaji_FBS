@@ -9,7 +9,11 @@ void main()
 	scanf("%d%d",&num1,&num2);
 	fflush(stdin);
 	
-	printf("Enter a operator(+ - * /):");
+	
+	printf("Enter a operator (+ - * /):");
+	scanf("%c", &oper);
+	if(oper=='+')
+	{ 
 		res = num1 + num2;
 		printf("%d",res);
 	}

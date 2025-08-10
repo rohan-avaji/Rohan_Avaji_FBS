@@ -1,0 +1,317 @@
+1.
+mysql> use assignment2;
+Database changed
+mysql> create table Member(
+    -> Member_id int primary key,
+    -> Member_name varchar(30),
+    -> Member_address varchar(50),
+    -> Acc_Open_Date date,
+    -> Membership_type varchar(20),
+    -> Fees_paid int,
+    -> Max_Books_Allowed int,
+    -> Penalty_Amount decimal(7,2));
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> create table Books(
+    -> Book_No int primary key,
+    -> Book_Name varchar(30),
+    -> Author_Name varchar(30),
+    -> Cost decimal(7,2),
+    -> Category char(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table Issue(
+    -> Lib_issue_Id int primary key,
+    -> Book_No int,
+    -> Member_Id int,
+    -> Issue_Date date,
+    -> Return_Date Date);
+Query OK, 0 rows affected (0.03 sec)
+
+2.
+mysql> desc Member;
+mysql> desc Books;
+mysql> desc Issue;
+
+3.
+mysql> drop table Member;
+Query OK, 0 rows affected (0.04 sec)
+
+4.
+mysql> Create table Member(
+    -> Member_Id int primary key,
+    -> Membership_type varchar(20),
+    -> CHECK (Membership_type IN ('Lifetime', 'Annual', 'Half Yearly', 'Quarterly')));
+Query OK, 0 rows affected (0.03 sec)
+
+5.
+mysql> alter table Member
+    -> add column Member_name varchar(30) after Member_Id;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+6.
+mysql> alter table Issue
+    -> add column Reference char(30);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+7.
+mysql> alter table Issue
+    -> drop column Reference;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+8.
+mysql> rename table Issue to Lib_Issue;
+Query OK, 0 rows affected (0.03 sec)
+
+9.
+mysql> insert into member values(1,"Richa Sharma","Pune","10-12-05","Lifetime",25000,5,50);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into member values(2, "Garima Sen", "Pune", "2025-08-07", "Annual", 1000, 3, NULL);
+Query OK, 1 row affected (0.01 sec)
+
+10.
+mysql> insert into member values(1,"Richa Sharma","Pune","10-12-05","Lifetime",25000,5,50);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into member values(2, "Garima Sen", "Pune", "2025-08-07", "Annual", 1000, 3, NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into member values(
+    -> 3,"Rohan Avaji","Mumbai","25-03-27","Quarterly",28000,2,35);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into member values(
+    -> 4,"Sonakshi Gujral","Nagpur","20-10-23","Half Yearly",35000,1,67);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into member values(
+    -> 5,"Rohit Bhosle","Delhi","22-12-28","Lifetime",39000,7,80);
+Query OK, 1 row affected (0.00 sec)
+
+11.
+mysql> alter table member
+    -> MODIFY Member_name varchar(20);
+Query OK, 5 rows affected (0.09 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> desc member;
+
+12.
+mysql> alter table member
+    -> add constraint chk_books_allowed
+    -> check (Max_Books_Allowed <= 110);
+Query OK, 5 rows affected (0.07 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into member values(
+    -> 8," Dipesh Kumar","Pune","19-5-2","Annual",4500,200,NULL);
+ERROR 3819 (HY000): Check constraint 'chk_books_allowed' is violated.
+
+13.
+mysql> create table Member101 as
+    -> select * from Member;
+Query OK, 7 rows affected (0.04 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+14.
+a)mysql> alter table Member101
+    -> add constraint chk_max_books_allowed
+    -> check (Max_Books_Allowed <= 110);
+Query OK, 7 rows affected (0.05 sec)
+Records: 7 Duplicates: 0  Warnings: 0
+
+b) mysql> alter table Member101
+    -> add constraint chk_penalty_amt
+    -> check (Penalty_Amount <= 1000);
+Query OK, 7 rows affected (0.06 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+15.
+mysql> drop table books;
+Query OK, 0 rows affected (0.02 sec)
+
+16.
+mysql> create table Books(
+    -> Book_no int primary key,
+    -> Book_Name varchar(30) NOT NULL,
+    -> Category varchar(20));
+Query OK, 0 rows affected (0.19 sec)
+
+17.
+mysql> insert into Books values(
+    -> 101,"let us C","Denis Ritchie",450,"System");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Books values(
+    -> 102,"Oracle - Complete Ref","Loni",550,"Database");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Books values(
+    -> 103,"Mastering SQL","Loni",250,"Database");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Books values(
+    -> 104,"PL SQL-Ref","Scott Urman",750,"Database");
+Query OK, 1 row affected (0.01 sec)
+
+18.
+mysql> insert into Books values(
+    -> 105,"DSA","Narashimha K",650,"Data Structure");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Books values(
+    -> 106,"The_Alchemist","Paulo C",435,"Fiction");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Books values(
+    -> 107,"Python","Guido R",755,"Programming");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into Books values(
+    -> 107,"Python","Guido R",755,"Programming");
+ERROR 1062 (23000): Duplicate entry '107' for key 'books.PRIMARY'
+mysql> insert into Books values(
+    -> 108,"Clean_code","Thomas H",505,"SEngineering");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Books values(
+    -> 109,"Head_First_C","Mark A",885,"CodingInterview");
+Query OK, 1 row affected (0.00 sec)
+
+19.
+mysql> select * from Books;
+
+20.
+mysql> insert into books values(
+    -> 110,"National Geographic","Adits Scott",1000,"Science");
+Query OK, 1 row affected (0.00 sec)
+
+21.
+mysql> Rename table lib_issue to Issue;
+Query OK, 0 rows affected (0.05 sec)
+
+22.
+mysql> drop table issue;
+Query OK, 0 rows affected (0.02 sec)
+
+23.
+mysql> create table Issue(
+    -> Lib_Issue_Id int primary key,
+    -> Book_No int,
+    -> Member_id int,
+    -> Issue_date date,
+    -> Return_date date,
+    -> constraint fk_book foreign key (Book_No) references Books(Book_No),
+    -> constraint fk_member foreign key (Member_Id) references Member(Member_Id));
+Query OK, 0 rows affected (0.05 sec)
+
+24.
+mysql> insert into issue values(7001,101,1,"2010-12-06",NULL);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into issue values(7002,102,2,"2025-12-06",NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into issue values(7003,104,1,"2015-1-06",NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into issue values(7004,101,1,"2004-7-06",NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into issue values(7005,104,2,"2015-11-06",NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into issue values(7006,101,3,"2018-2-06",NULL);
+Query OK, 1 row affected (0.00 sec)
+
+25.
+mysql> alter table issue
+    -> drop foreign key fk_book;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table issue
+    -> drop foreign key fk_member;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+26.
+mysql> insert into issue values(7007,109,9999,"2018-2-06",NULL);
+Query OK, 1 row affected (0.01 sec)
+
+27.
+insert into issue values(7006,101,9999,"2018-2-06",NULL); 
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`assignment2`.`issue`, CONSTRAINT `fk_member` FOREIGN KEY (`Member_Id`) REFERENCES `member` (`Member_Id`))
+
+28.
+mysql> set foreign_key_checks = 0;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into issue values(7007,101,9999,"2020-5-06",NULL);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> set foreign_key_checks = 1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into issue values(7008,102,9999,"2020-5-06",NULL);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`assignment2`.`issue`, CONSTRAINT `fk_member` FOREIGN KEY (`Member_Id`) REFERENCES `member` (`Member_Id`))
+mysql>
+
+29.
+mysql> delete from member
+    -> where member_id=1;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`assignment2`.`issue`, CONSTRAINT `fk_member` FOREIGN KEY (`Member_Id`) REFERENCES `member` (`Member_Id`))
+
+30.
+• view the data:-
+mysql> desc member;
+mysql> desc issue;
+mysql> desc books;
+
+• structure of all the three tables:-
+mysql> show create table member;
+mysql> show create table issue;
+mysql> show create table books;
+
+31.
+mysql> update issue
+    -> set Return_Date = date_add(Issue_Date, interval 15 day)
+    -> where Lib_Issue_Id in (7004, 7005);
+Query OK, 2 rows affected (0.03 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+32.
+mysql> delete from issue
+    -> where Member_Id = 1 and Issue_Date < "2006-12-10";
+Query OK, 2 rows affected (0.01 sec)
+
+33.
+mysql> delete from issue
+    -> where Book_no in (select Book_no from books where Category not in ("RDBMS","Database"));
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> table books;
+
+mysql> delete from books
+    -> where Category not in ("RDBMS","Database");
+Query OK, 7 rows affected (0.01 sec)
+
+mysql> table books;
+
+34.
+mysql> delete from issue;
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> drop table issue;
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> drop table member;
+Query OK, 0 rows affected (0.03 sec)
+
+35.
+mysql> drop table books;
+Query OK, 0 rows affected (0.03 sec)

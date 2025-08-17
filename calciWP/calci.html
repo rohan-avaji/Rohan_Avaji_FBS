@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Box</title>
+    <script>
+displayparseInt=document.getElementById("display")
+
+function numChar(char)
+{
+    display.value =display.value + char
+    console.log('display')
+}
+
+function clearnum()
+{
+    display.value = ''
+}
+
+function deletenum()
+{
+    display.value = display.value.slice(0, -1)
+}
+
+function calculate()
+{
+    try {
+        display.value = eval(display.value)
+    } catch (e) {
+        display.value = ''
+    }
+}
+
+</script>
+</head>
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: black;
+    }
+    .calculator {
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      text-align: right;
+      border-radius: 8px;
+      border: 1px solid black;
+      background-color: black;
+      color: white;
+      font-size: 40px;
+    }
+    button {
+      width: 80px;
+      height: 80px;
+      margin: 5px;
+      font-size: 20px;
+      cursor: pointer;
+      border: none;
+      border-radius: 50px;
+      background: grey;
+    }
+    button:hover {
+      background: #ddd;
+    }
+    .equal {
+      background: orange;
+      color: white;
+    }
+    .equal:hover {
+      background: darkorange;
+    }
+
+    h1 {
+        color: aliceblue;
+        margin-top: -550px;
+        margin-right: -310px;
+        font-size: 50px;
+    }
+    </style>
+<body>
+    <h1>Calculator</h1>
+    <div id="calculator">
+        <input type="text" id="display">
+        <br><br>
+
+        <button onclick="clearnum()">AC</button>
+        <button onclick="deletenum()">DEL</button>
+        <button onclick="numChar('/')">/</button>
+        <button onclick="numChar('*')">*</button>
+        <br>
+        <button onclick="numChar('7')">7</button>
+        <button onclick="numChar('8')">8</button>
+        <button onclick="numChar('9')">9</button>
+        <button onclick="numChar('-')">-</button>
+        <br>
+        <button onclick="numChar('4')">4</button>
+        <button onclick="numChar('5')">5</button>
+        <button onclick="numChar('6')">6</button>
+        <button onclick="numChar('+')">+</button>
+        <br>
+        <button onclick="numChar('1')">1</button>
+        <button onclick="numChar('2')">2</button>
+        <button onclick="numChar('3')">3</button>
+        <button class="equal" onclick="calculate()">=</button>
+        <br>
+        <button onclick="numChar('00')">00</button>
+        <button onclick="numChar('0')">0</button>
+        <button onclick="numChar('.')">.</button>
+        </div>
+</body>
+</html>
